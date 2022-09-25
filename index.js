@@ -10,7 +10,10 @@ const port = 3000
 app
   .route('/empleados')
   .get(async (req, res) => {
-    const rows = await db.query(`SELECT * FROM empleado`)
+    const rows = await db.query(
+      `SELECT empleado.id, empleado.nombre, empleado.cedula, empleado.titulo, departamento.nombre as departamento
+      FROM empleado INNER JOIN departamento ON empleado.departamento = departamento.id`
+    )
     res.json(rows)
   })
   .post(async (req, res) => {
